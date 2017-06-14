@@ -4,6 +4,7 @@ import requests
 import requests.auth
 import time
 import auth
+import tweet
 
 
 def get_hot_topic(token):
@@ -11,9 +12,11 @@ def get_hot_topic(token):
     response = requests.get("https://oauth.reddit.com/r/stocks/hot", headers=headers)
     temp_response = response.json()
 
-    for object in temp_response['data']['children']:
-        id = object['data']['id']
-        save_post_id(id)
+    for child in temp_response['data']['children']:
+        child_data = child['data']
+        id = child_data['id']
+        if save_post_id(id):
+            tweet.tweet(child_data['title'] + " " + child_data['url'])
 
 
 def save_post_id(post_id):
@@ -21,10 +24,12 @@ def save_post_id(post_id):
 
     if post_id in file.read():
         print "Current id already exists"
+        return False
     else:
         print "Writing id :" + post_id + " into file"
         file.write("%s\n" % post_id)
+        return True
     file.close()
 
-get_hot_topic(auth.get_access_token())
 
+get_hot_topic(auth.get_access_token())
