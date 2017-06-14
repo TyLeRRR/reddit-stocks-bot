@@ -31,5 +31,6 @@ def save_post_id(post_id):
         return True
     file.close()
 
-
-get_hot_topic(auth.get_access_token())
+while True:
+    get_hot_topic(auth.get_access_token())
+    time.sleep(300)
