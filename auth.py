@@ -1,9 +1,9 @@
 import requests
 
-username = "Ty1eRRR"
-password = "t3pdygE264C2hCj7"
-app_client_ID = "n2Cyar-l0rGPTg"
-app_client_secret = "BrYJBt6nLKOynK9ahrRKRJo90C4"
+username = **********
+password = **********
+app_client_ID = **********
+app_client_secret = **********
 
 
 def get_access_token():
